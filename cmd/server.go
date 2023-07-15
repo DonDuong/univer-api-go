@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"university-api/domain/repository"
 	interfacesHandler "university-api/interfaces/handler"
 	interfacesService "university-api/interfaces/service"
@@ -26,6 +27,10 @@ type ApiServer struct {
 
 func (server *ApiServer) Start() {
 	server.echo = echo.New()
+
+	if err := server.env(); err != nil {
+		fmt.Println(err)
+	}
 	server.DependenciesInjection()
 	server.route()
 

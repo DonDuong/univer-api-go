@@ -116,11 +116,16 @@ func (db *Database) ConnectToPGSQL() (err []error) {
 		errGeneralOpen error
 		errGeneralPing error
 	)
-	pgsql_user = "postgres"
-	pgsql_pass = "dAy_tVmBHE3$qtW"
-	pgsql_dbname = "postgres"
+	// pgsql_user = "teywcjxi"
+	// pgsql_pass = "dAy_tVmBHE3$qtW"
+	// pgsql_dbname = "postgres"
+	// pgsql_host := "db.yyleioknuokgmzoqyyjc.supabase.co"
+	pgsql_user = db.PgSqlUser
+	pgsql_pass = db.PgSqlPass
+	pgsql_dbname = db.PgSqlDbname
 	pgsql_host := "db.yyleioknuokgmzoqyyjc.supabase.co"
 	if db.GeneralDatabase == nil {
+		fmt.Println(pgsql_user, pgsql_pass, pgsql_dbname)
 		pgsql_dns = fmt.Sprintf("host=%s dbname=%s", pgsql_host, pgsql_dbname)
 		dns := fmt.Sprintf("%s port=5432 user=%s password=%s sslmode=disable", pgsql_dns, pgsql_user, pgsql_pass)
 		db.GeneralDatabase, errGeneralOpen = sql.Open("postgres", dns)
