@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"os"
 	"university-api/domain/repository"
 
 	_ "github.com/lib/pq"
@@ -116,14 +117,10 @@ func (db *Database) ConnectToPGSQL() (err []error) {
 		errGeneralOpen error
 		errGeneralPing error
 	)
-	// pgsql_user = "teywcjxi"
-	// pgsql_pass = "dAy_tVmBHE3$qtW"
-	// pgsql_dbname = "postgres"
-	// pgsql_host := "db.yyleioknuokgmzoqyyjc.supabase.co"
 	pgsql_user = db.PgSqlUser
 	pgsql_pass = db.PgSqlPass
 	pgsql_dbname = db.PgSqlDbname
-	pgsql_host := "db.yyleioknuokgmzoqyyjc.supabase.co"
+	pgsql_host := os.Getenv("HOSTPGSQL")
 	if db.GeneralDatabase == nil {
 		fmt.Println(pgsql_user, pgsql_pass, pgsql_dbname)
 		pgsql_dns = fmt.Sprintf("host=%s dbname=%s", pgsql_host, pgsql_dbname)
