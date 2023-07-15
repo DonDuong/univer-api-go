@@ -28,13 +28,19 @@ func (handler *ApiFacultyHandler) GetFaculty() echo.HandlerFunc {
 		tx, errTx := handler.service.DatabaseRepository().Begin()
 		if errTx != nil {
 			fmt.Println("Get faculty, begin tx err:", errTx)
-			return c.JSON(500, "Something wrong")
+			return c.JSON(500, response.Message{
+				Error: "Some thing wrong",
+				Data:  nil,
+			})
 		}
 		defer handler.service.DatabaseRepository().Close()
 		faculty, err := handler.service.GetFaculty(tx, faculty_cd)
 		fmt.Println("faculty: ", faculty)
 		if faculty == nil {
-			return c.JSON(404, "not found")
+			return c.JSON(404, response.Message{
+				Error: "not found",
+				Data:  faculty,
+			})
 		}
 		if err != nil {
 			return c.JSON(500, response.Message{
